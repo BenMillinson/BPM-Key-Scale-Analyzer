@@ -14,11 +14,10 @@ class MusicAnalyzerApp:
         self.loading_label = None
 
         # Set a consistent background color for the GUI
-        self.bg_color = "#f0f0f0"  # Light gray background for the GUI
+        self.bg_color = "#f0f0f0"
         self.root.config(bg=self.bg_color)
 
         # GUI Elements
-        # Set the button text color to always be black (fg="black")
         self.upload_button = tk.Button(self.root, text="Upload Audio File", command=self.open_file, bg="#4CAF50", fg="black", font=("Arial", 12))
         self.upload_button.pack(pady=20)
 
@@ -55,7 +54,7 @@ class MusicAnalyzerApp:
         """Handles the audio processing in a separate thread."""
         bpm, key, scale = self.analyze_music(file_path)
 
-        # Once done, update the GUI with the result
+        
         self.root.after(0, lambda: self.display_results(bpm, key, scale))
 
     def analyze_music(self, file_path):
@@ -63,7 +62,7 @@ class MusicAnalyzerApp:
         # Load audio file with librosa
         y, sr = librosa.load(file_path)
 
-        # Estimate BPM (tempo)
+        # Estimate BPM
         tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
 
         # Check if tempo is an ndarray, and if so, get the first element
@@ -84,8 +83,8 @@ class MusicAnalyzerApp:
         self.loading_label = tk.Label(self.root, text="Analyzing...", fg="black", bg=self.bg_color, font=("Arial", 12))  # Black text
         self.loading_label.pack(pady=5)
 
-        # Create a smaller loading spinner (circle)
-        self.loading_circle(self.canvas, 100, 100, 40)  # Smaller radius (40)
+        # Create a loading spinner
+        self.loading_circle(self.canvas, 100, 100, 40)  
 
     def loading_circle(self, canvas, x, y, radius):
         """Draw a spinning circle for the loading indicator."""
